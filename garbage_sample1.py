@@ -34,14 +34,14 @@ class garbage:
         self.instance   = obj
         self.flag_clean = 0#ゴミ回収中フラグ
         self.flag_busy  = 0
-        
+
     def change_amount(self,amount,t):#増加量
-        
+
         if(((self.amount+amount)>0) & (self.amount < self.maximam)):
             self.amount_log[t]=amount
             #print(self.amount_log)#デバッグ
             self.amount = self.amount + amount
-            self.check_busy()  
+            self.check_busy()
         else:
             self.clean()
             print("clean　処理")
@@ -51,7 +51,7 @@ class garbage:
 
     def change_course(self,delta_xy):
         pass
-    
+
     def check_busy(self):
         dict_count = len(self.amount_log)
         d_amount = list(self.amount_log.items())
@@ -61,7 +61,7 @@ class garbage:
         a1 = d_amount[dict_count-2][0]
         a2 = d_amount[dict_count-2][1]
 
-        
+
 
         if( ((b2-a2) / ((b1-a1)/10)) >= 1.5 ):
             print("busy on")
@@ -73,14 +73,14 @@ def calc_deltapos(a_x,a_y,b_x,b_y):
         if(a_y>b_y):
             return ((b_x - a_x),(b_y - a_y))
         else:
-            return ((b_x - a_x),(-(a_y)+ b_y))
+            return ((b_x - a_x),(a_y + b_y))
     else:
         if(a_y>b_y):
-            return ((b_x - a_x),(a_y- b_y))
+            return ((b_x - a_x),(a_y - b_y))
         else:
             return ((b_x - a_x),(b_y - a_y))
-        
-        
+
+
 
 
 
@@ -115,7 +115,7 @@ def dot_circle(t):
     #step_text.set_text('step = {0}'.format(t))
 
     #増加フラグbitのチェック(サーバサイド)
-    
+
     for i in range(0,obj_count):
         tmp_obj=obj_list[i]
         if(tmp_obj.flag_busy):
@@ -135,7 +135,7 @@ def dot_circle(t):
                 print(tmp_xy)
                 obj_list[i].x =obj_list[i].x + tmp_xy[0]
                 obj_list[i].y =obj_list[i].x + tmp_xy[1]
-                
+
             tmp_obj.flag_busy = 0
             print(tmp_obj.name,"busy flag off")
 
@@ -143,8 +143,8 @@ def dot_circle(t):
           obj_list[1].name,"位置xy",obj_list[1].x,obj_list[1].y,"\n",
           obj_list[2].name,"位置xy",obj_list[2].x,obj_list[2].y,"\n"
           )
-    
-    
+
+
     """
     移動例
     xt = 1

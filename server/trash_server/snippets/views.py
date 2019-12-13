@@ -44,7 +44,7 @@ def snippet_detail(request, pk):
             serializer.save()
             return JsonResponse(serializer.data)
         return JsonResponse(serializer.errors, status=400)
-
+    #elif UPDATE
     elif request.method == 'DELETE':
         snippet.delete()
         return HttpResponse(status=204)

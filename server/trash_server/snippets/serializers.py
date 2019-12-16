@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from snippets.models import Snippet
+from snippets.models import Snippet,AllNode
 
 '''
 class SnippetSerializer(serializers.Serializer):
@@ -28,3 +28,8 @@ class SnippetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Snippet
         fields = ('id','name', 'people', 'amount_trash')
+
+class InitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AllNode
+        fields =('client','x','y')

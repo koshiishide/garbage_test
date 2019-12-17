@@ -14,7 +14,6 @@ def snippet_init(request):#初期化
     """
     if request.method == 'GET':
         all_node = AllNode.objects.all()
-        #print(request.GET.get("node"))
         serializer = InitSerializer(all_node, many=True)
         return JsonResponse(serializer.data, safe=False)
     elif request.method == 'POST':
@@ -36,17 +35,23 @@ def snippet_list(request):#全データ
 
     if request.method == 'GET':
         #snippets = Snippet.objects.all()
-        allnode = list(AllNode.objects.values_list('name',flat='True').distinct())
-        init_node = list(Snippet.objects.values_list('client',flat='True').distinct())
+        allnode = list(AllNode.objects.values_list('name',flat='True').distinct()) #allnodefの名前一覧
+        init_node = list(Snippet.objects.values_list('client',flat='True').distinct())　#init_nodeの名前一覧
+         #Queueデータベース参照
+        queue = list(Client_Queue.objects.values_list('client',flat='True').distinct()) #queueに入っているデータを参照
         
-        if ((set(allnode)) == (set(init_node))):
-            #Queu追加
-            client_queue= Client_Queue.object.create(client = request.GET.get("client"))
-            qlient_queue.save()
-            
-            #Queueデータベース参照
-            queue = list(Client_Queue.objects.values_list('client',flat='True').distinct())
+        get_node =  request.GET.get("client")
 
+        
+        if ((set(allnode)) == (set(init_node))):#整合性取れたら
+            #もし送信済みなら
+            if get_node in queue:
+                return JsonResponse({"error": "-1"})#エラー待機命令
+
+            #まだGETをもらっていなかったら送信済みQueuデータベースに追加
+            client_queue= Client_Queue.object.create(client = get_node)
+            client_queue.save()
+            
             #アルゴリズム処理
 
             #アルゴリズムの結果をMapFieldに代入

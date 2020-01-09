@@ -57,6 +57,7 @@ class garbage:
         d_amount = list(self.amount_log.items())
         b1 = d_amount[dict_count-1][0]
         b2 = d_amount[dict_count-1][1]
+
         a1 = d_amount[dict_count-2][0]
         a2 = d_amount[dict_count-2][1]
 
@@ -155,7 +156,7 @@ def dot_circle(t):
 
 
 #####################animation#######################################
-
+"""
 ani = animation.FuncAnimation(
       fig,  # Figureオブジェクト
       dot_circle,  # グラフ描画関数
@@ -166,3 +167,4 @@ ani = animation.FuncAnimation(
       )
 
 plt.show()
+"""
